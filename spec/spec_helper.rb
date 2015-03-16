@@ -44,7 +44,7 @@ end
 
 def make_goal(goal_name, privacy)
   visit new_goal_url
-  fill_in "name", with: goal_name
+  fill_in "Name", with: goal_name
   choose "#{privacy}"
   click_on "Create Goal"
 end

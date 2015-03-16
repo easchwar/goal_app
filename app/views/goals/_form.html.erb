@@ -1,0 +1,21 @@
+<form class="" action="<%= url %>" method="post">
+  <%= auth_input %>
+  <% if goal.persisted? %>
+    <input type="hidden" name="_method" value="patch">
+  <% end %>
+  <label>Name<input type="text" name="goal[name]" value="<%= goal.name %>"></label>
+  <br>
+  <label>Description
+    <textarea name="goal[description]" rows="8" cols="40"><%= goal.description %></textarea>
+  </label>
+  <br>
+  <label>
+    public
+    <input name="goal[privacy]" type="radio" value="public">
+  </label>
+  <label>
+    private
+    <input name="goal[privacy]" type="radio" value="private">
+  </label>
+  <input type="submit" value="<%= btn_val %>">
+</form>

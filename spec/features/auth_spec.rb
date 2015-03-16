@@ -45,5 +45,16 @@ feature "logging out" do
     click_on "Log Out"
     expect(page).to_not have_content('test_username')
   end
+end
 
+feature "must be logged in to view site content" do
+  before(:each) do
+    sign_up_as_test_user
+    click_on 'Log Out'
+  end
+
+  it 'redirects to login page if non-logged in user attempts to visit site' do
+    visit user_url(1)
+    expect(page).to have_content('Sign In')
+  end
 end

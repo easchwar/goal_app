@@ -13,7 +13,11 @@
 
 class Goal < ActiveRecord::Base
   validates :name, :user_id, :privacy, presence: true
-  validates :privacy, inclusion: { %w(private public) }
+  validates :privacy, inclusion: { in: %w(private public) }
 
   belongs_to :user
+
+  def self.public_goals
+    Goal.where(privacy: 'public')
+  end
 end

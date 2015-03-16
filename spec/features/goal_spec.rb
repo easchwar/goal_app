@@ -23,6 +23,12 @@ feature 'goal creation' do
     expect(page).to have_content('Finish App Academy')
   end
 
+  it 're-renders template on unsuccessful create' do
+    click_on 'New Goal'
+    click_on 'Create Goal'
+    expect(page).to have_content("Name can't be blank")
+  end
+
   it 'new goal appears on user show page after creation' do
     click_on('New Goal')
     fill_in 'Name', with: 'Finish App Academy'
@@ -70,6 +76,13 @@ feature 'editing goals' do
     expect(page).to have_content('Updated!')
   end
 
+  it 're-renders template on unsuccessful edit' do
+    click_on 'Edit Goal'
+    fill_in 'Name', with: ''
+    click_on 'Update Goal'
+    expect(page).to have_content("Name can't be blank")
+  end
+
   it "doesn't allow user to edit other user's goals" do
     click_on 'Log Out'
     sign_up("foo")
@@ -85,7 +98,7 @@ feature 'deleting goals' do
   end
 
   it 'allow user to delete own goals' do
-    expect(page).to have_content('Remove Goal')
+    expect(page).to have_selector(:link_or_button, 'Remove Goal')
   end
 
   it 'redirects to user show page after deletion' do
