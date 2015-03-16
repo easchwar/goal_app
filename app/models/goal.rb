@@ -9,11 +9,13 @@
 #  privacy     :string           not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  status      :string           default("in progress"), not null
 #
 
 class Goal < ActiveRecord::Base
   validates :name, :user_id, :privacy, presence: true
   validates :privacy, inclusion: { in: %w(private public) }
+  validates :status, inclusion: { in: ['in progress','complete'] }
 
   belongs_to :user
 

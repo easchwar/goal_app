@@ -113,3 +113,34 @@ feature 'deleting goals' do
     expect(page).to_not have_content('Remove Goal')
   end
 end
+
+feature 'completed goals' do
+  before(:each) do
+    sign_up_as_test_user
+    make_goal('test_goal', 'public')
+  end
+
+  it 'newly created goals are displayed as in progress' do
+    expect(page).to have_content('in progress')
+    visit user_url(User.find_by_username('test_username'))
+    expect(page).to have_content('in progress')
+  end
+
+  it 'allows user to complete goals' do
+    expect(page).to have_selector(:link_or_button, 'Complete Goal')
+  end
+
+  it 'completed goals are displayed as complete' do
+    click_on 'Complete Goal'
+    expect(page).to have_content('complete')
+    visit user_url(User.find_by_username('test_username'))
+    expect(page).to have_content('complete')
+  end
+
+  it "does not allow user to complete other users' goals" do
+    click_on 'Log Out'
+    sign_up("foo")
+    visit goal_url(Goal.find_by_name('test_goal'))
+    expect(page).to_not have_selector(:link_or_button, 'Complete Goal')
+  end
+end

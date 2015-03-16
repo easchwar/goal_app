@@ -11,11 +11,11 @@
   <br>
   <label>
     public
-    <input name="goal[privacy]" type="radio" value="public">
+    <input <%= 'checked' if goal.privacy == 'public' %> name="goal[privacy]" type="radio" value="public">
   </label>
   <label>
     private
-    <input name="goal[privacy]" type="radio" value="private">
+    <input <%= 'checked' if goal.privacy == 'private' %> name="goal[privacy]" type="radio" value="private">
   </label>
   <input type="submit" value="<%= btn_val %>">
 </form>

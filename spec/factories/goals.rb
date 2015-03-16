@@ -9,6 +9,7 @@
 #  privacy     :string           not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  status      :string           default("in progress"), not null
 #
 
 FactoryGirl.define do

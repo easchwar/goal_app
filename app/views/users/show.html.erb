@@ -4,7 +4,7 @@
   <h2>Private Goals</h2>
   <ul>
     <% @user.goals.each do |goal| %>
-      <li><%= link_to goal.name, goal_url(goal) %></li>
+      <li><%= link_to goal.name, goal_url(goal) %> - <%= goal.status %></li>
     <% end %>
   </ul>
 
@@ -12,14 +12,14 @@
 
   <ul>
     <% @other_goals.each do |goal| %>
-      <li><%= link_to goal.name, goal_url(goal) %></li>
+      <li><%= link_to goal.name, goal_url(goal) %> - <%= goal.status %></li>
     <% end %>
   </ul>
 <% else %>
   <h2><%= @user.username %>'s Public Goals</h2>
   <ul>
     <% @users_public_goals.each do |goal| %>
-      <li><%= link_to goal.name, goal_url(goal) %></li>
+      <li><%= link_to goal.name, goal_url(goal) %> - <%= goal.status %></li>
     <% end %>
   </ul>
 <% end %>

@@ -1,13 +1,20 @@
 <h1><%= @goal.name %></h1>
 
-<%= @goal.description %>
+Status: <%= @goal.status %>
+
+<div>
+  <%= @goal.description %>
+</div>
 
 <div>
   <%= link_to @goal.user.username, user_url(@goal.user) %>
 </div>
 
 <% if @goal.user_id == current_user.id %>
-  <h2>Links</h2>
+  <h3>Links</h3>
   <%= link_to "Edit Goal", edit_goal_url(@goal) %>
+  <% if @goal.status == 'in progress' %>
+    <%= button_to "Complete Goal", complete_goal_url(@goal), method: :post %>
+  <% end %>
   <%= button_to "Remove Goal", goal_url(@goal), method: :delete %>
 <% end %>

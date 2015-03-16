@@ -44,6 +44,13 @@ class GoalsController < ApplicationController
     redirect_to user_url(current_user)
   end
 
+  def complete
+    @goal = Goal.find(params[:id])
+    @goal.status = 'complete'
+    @goal.save!
+    redirect_to goal_url(@goal)
+  end
+
   private
 
   def require_logged_in
