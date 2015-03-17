@@ -27,3 +27,29 @@
 <% if @user.id == current_user.id %>
   <%= link_to "New Goal", new_goal_url %>
 <% end %>
+
+<h2>Comments</h2>
+
+<ul>
+  <% @user.comments.each do |comment| %>
+    <li>
+      <%= comment.body %>
+      <br>
+      <% if current_user.id == @user.id || current_user.id == comment.author_id %>
+        <%= button_to 'Remove Comment', comment_url(comment), method: 'delete' %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+
+<form class="" action="<%= comments_url %>" method="post">
+  <%= auth_input %>
+  <input type="hidden" name="comment[commentable_id]" value="<%= @user.id %>">
+  <input type="hidden" name="comment[commentable_type]" value="<%= @user.class.name %>">
+
+  <label>Comment
+    <textarea name="comment[body]" rows="4" cols="20"></textarea>
+  </label>
+
+  <input type="submit" name="" value="Add Comment">
+</form>

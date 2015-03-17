@@ -18,3 +18,29 @@ Status: <%= @goal.status %>
   <% end %>
   <%= button_to "Remove Goal", goal_url(@goal), method: :delete %>
 <% end %>
+
+<h2>Comments</h2>
+
+<ul>
+  <% @goal.comments.each do |comment| %>
+    <li>
+      <%= comment.body %>
+      <br>
+      <% if current_user.id == @goal.user_id || current_user.id == comment.author_id %>
+        <%= button_to 'Remove Comment', comment_url(comment), method: 'delete' %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+
+<form class="" action="<%= comments_url %>" method="post">
+  <%= auth_input %>
+  <input type="hidden" name="comment[commentable_id]" value="<%= @goal.id %>">
+  <input type="hidden" name="comment[commentable_type]" value="<%= @goal.class.name %>">
+
+  <label>Comment
+    <textarea name="comment[body]" rows="4" cols="20"></textarea>
+  </label>
+
+  <input type="submit" name="" value="Add Comment">
+</form>

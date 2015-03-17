@@ -13,6 +13,8 @@
 #
 
 class Goal < ActiveRecord::Base
+  include Commentable
+
   validates :name, :user_id, :privacy, presence: true
   validates :privacy, inclusion: { in: %w(private public) }
   validates :status, inclusion: { in: ['in progress','complete'] }
